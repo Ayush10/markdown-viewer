@@ -1,0 +1,63 @@
+/* ─── VS Code Theme Variable Mapping ─── */
+/* Maps VS Code's built-in CSS variables to the extension's custom properties */
+/* Falls back to the extension's own values when VS Code vars are unavailable */
+
+[data-theme='dark'] {
+  --bg-primary: var(--vscode-editor-background, #0f1117);
+  --bg-secondary: var(--vscode-sideBar-background, #161822);
+  --bg-tertiary: var(--vscode-editorWidget-background, #1c1f2e);
+  --bg-elevated: var(--vscode-editorHoverWidget-background, #232738);
+  --bg-hover: var(--vscode-list-hoverBackground, #2a2e42);
+  --bg-active: #323754;
+  --bg-code: #1a1d2e;
+  --bg-code-inline: #2a2e42;
+  --border: var(--vscode-panel-border, #2a2e42);
+  --border-subtle: #1f2233;
+  --text-primary: var(--vscode-editor-foreground, #e4e6f0);
+  --text-secondary: var(--vscode-descriptionForeground, #9399b2);
+  --text-tertiary: #6c7293;
+  --text-link: var(--vscode-textLink-foreground, #818cf8);
+  --text-link-hover: var(--vscode-textLink-activeForeground, #a5b4fc);
+  --accent: var(--vscode-focusBorder, #6366f1);
+  --accent-hover: #818cf8;
+  --accent-subtle: rgba(99, 102, 241, 0.15);
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: var(--vscode-errorForeground, #f87171);
+  --info: #60a5fa;
+  --scrollbar-thumb: var(--vscode-scrollbarSlider-background, #2a2e42);
+  --scrollbar-track: transparent;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='light'] {
+  --bg-primary: var(--vscode-editor-background, #ffffff);
+  --bg-secondary: var(--vscode-sideBar-background, #f8f9fc);
+  --bg-tertiary: var(--vscode-editorWidget-background, #f0f1f5);
+  --bg-elevated: var(--vscode-editorHoverWidget-background, #ffffff);
+  --bg-hover: var(--vscode-list-hoverBackground, #eef0f5);
+  --bg-active: #e4e7ef;
+  --bg-code: #f4f5f8;
+  --bg-code-inline: #eef0f5;
+  --border: var(--vscode-panel-border, #e2e4eb);
+  --border-subtle: #eef0f5;
+  --text-primary: var(--vscode-editor-foreground, #1a1c28);
+  --text-secondary: var(--vscode-descriptionForeground, #5c6070);
+  --text-tertiary: #8b8fa3;
+  --text-link: var(--vscode-textLink-foreground, #4f46e5);
+  --text-link-hover: var(--vscode-textLink-activeForeground, #6366f1);
+  --accent: var(--vscode-focusBorder, #4f46e5);
+  --accent-hover: #6366f1;
+  --accent-subtle: rgba(79, 70, 229, 0.08);
+  --success: #059669;
+  --warning: #d97706;
+  --error: var(--vscode-errorForeground, #dc2626);
+  --info: #2563eb;
+  --scrollbar-thumb: var(--vscode-scrollbarSlider-background, #d1d4de);
+  --scrollbar-track: transparent;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}

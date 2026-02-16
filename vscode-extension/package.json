@@ -1,0 +1,249 @@
+{
+  "name": "markdown-viewer-enhanced",
+  "displayName": "Markdown Viewer Enhanced",
+  "description": "Feature-rich markdown preview with GFM, LaTeX math, Mermaid diagrams, syntax highlighting, and LLM-powered rewriting",
+  "version": "0.1.0",
+  "publisher": "ayushojha",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ayush10/markdown-viewer"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "markdown",
+    "preview",
+    "mermaid",
+    "katex",
+    "math",
+    "gfm",
+    "llm",
+    "ai"
+  ],
+  "icon": "media/icon.png",
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "markdownViewer.showPreview",
+        "title": "Markdown Viewer: Open Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "markdownViewer.showPreviewToSide",
+        "title": "Markdown Viewer: Open Preview to the Side",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "markdownViewer.llmRewrite",
+        "title": "Rewrite"
+      },
+      {
+        "command": "markdownViewer.llmSimplify",
+        "title": "Simplify"
+      },
+      {
+        "command": "markdownViewer.llmExpand",
+        "title": "Expand"
+      },
+      {
+        "command": "markdownViewer.llmFixGrammar",
+        "title": "Fix Grammar"
+      },
+      {
+        "command": "markdownViewer.llmProfessional",
+        "title": "Make Professional"
+      },
+      {
+        "command": "markdownViewer.llmCustom",
+        "title": "Custom Prompt..."
+      },
+      {
+        "command": "markdownViewer.insertFrontmatter",
+        "title": "Markdown Viewer: Insert Frontmatter Template"
+      },
+      {
+        "command": "markdownViewer.toggleBold",
+        "title": "Markdown Viewer: Toggle Bold"
+      },
+      {
+        "command": "markdownViewer.toggleItalic",
+        "title": "Markdown Viewer: Toggle Italic"
+      },
+      {
+        "command": "markdownViewer.toggleCode",
+        "title": "Markdown Viewer: Toggle Inline Code"
+      },
+      {
+        "command": "markdownViewer.insertLink",
+        "title": "Markdown Viewer: Insert Link"
+      },
+      {
+        "command": "markdownViewer.insertImage",
+        "title": "Markdown Viewer: Insert Image"
+      },
+      {
+        "command": "markdownViewer.insertTable",
+        "title": "Markdown Viewer: Insert Table"
+      },
+      {
+        "command": "markdownViewer.insertCodeBlock",
+        "title": "Markdown Viewer: Insert Code Block"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "markdownViewer.llm",
+          "when": "editorHasSelection && resourceLangId == markdown",
+          "group": "1_modification"
+        }
+      ],
+      "markdownViewer.llm": [
+        {
+          "command": "markdownViewer.llmRewrite",
+          "group": "1_rewrite"
+        },
+        {
+          "command": "markdownViewer.llmSimplify",
+          "group": "1_rewrite"
+        },
+        {
+          "command": "markdownViewer.llmExpand",
+          "group": "1_rewrite"
+        },
+        {
+          "command": "markdownViewer.llmFixGrammar",
+          "group": "2_fix"
+        },
+        {
+          "command": "markdownViewer.llmProfessional",
+          "group": "2_fix"
+        },
+        {
+          "command": "markdownViewer.llmCustom",
+          "group": "3_custom"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "markdownViewer.showPreviewToSide",
+          "when": "resourceLangId == markdown",
+          "group": "navigation"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "markdownViewer.llm",
+        "label": "Rewrite with AI"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "markdownViewer.showPreviewToSide",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m",
+        "when": "resourceLangId == markdown"
+      },
+      {
+        "command": "markdownViewer.toggleBold",
+        "key": "ctrl+b",
+        "mac": "cmd+b",
+        "when": "editorTextFocus && resourceLangId == markdown"
+      },
+      {
+        "command": "markdownViewer.toggleItalic",
+        "key": "ctrl+i",
+        "mac": "cmd+i",
+        "when": "editorTextFocus && resourceLangId == markdown"
+      },
+      {
+        "command": "markdownViewer.toggleCode",
+        "key": "ctrl+`",
+        "mac": "cmd+`",
+        "when": "editorTextFocus && resourceLangId == markdown"
+      }
+    ],
+    "configuration": {
+      "title": "Markdown Viewer Enhanced",
+      "properties": {
+        "markdownViewer.llm.provider": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "vscode-lm",
+            "anthropic",
+            "openai"
+          ],
+          "default": "auto",
+          "description": "LLM provider. 'auto' tries VS Code Language Model API first, then falls back to direct API."
+        },
+        "markdownViewer.llm.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic API key for direct Claude access (used when vscode.lm is unavailable)"
+        },
+        "markdownViewer.llm.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API key for direct GPT access (used when vscode.lm is unavailable)"
+        },
+        "markdownViewer.llm.model": {
+          "type": "string",
+          "default": "",
+          "description": "Model to use (e.g., 'claude-sonnet-4-20250514', 'gpt-4o'). Leave empty for provider default."
+        },
+        "markdownViewer.preview.fontSize": {
+          "type": "number",
+          "default": 16,
+          "minimum": 12,
+          "maximum": 28,
+          "description": "Font size for the markdown preview"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "node esbuild.mjs --production",
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "package": "vsce package --no-dependencies",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "esbuild": "^0.24.0",
+    "typescript": "~5.9.0",
+    "@vscode/vsce": "^3.0.0"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-emoji": "^5.0.2",
+    "rehype-raw": "^7.0.0",
+    "rehype-slug": "^6.0.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-highlight": "^7.0.2",
+    "katex": "^0.16.28",
+    "mermaid": "^11.12.0",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.564.0"
+  }
+}
