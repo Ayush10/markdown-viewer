@@ -2,7 +2,7 @@
   "name": "markdown-viewer-enhanced",
   "displayName": "Markdown Viewer Enhanced",
   "description": "Feature-rich markdown preview with GFM, LaTeX math, Mermaid diagrams, syntax highlighting, and LLM-powered rewriting",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "ayushojha",
   "license": "MIT",
   "repository": {

@@ -95,23 +95,38 @@ export function activate(context: vscode.ExtensionContext) {
       .get<boolean>('autoOpen', true);
   }
 
-  function autoOpenIfMarkdown(editor: vscode.TextEditor | undefined) {
-    if (!editor) return;
-    if (editor.document.languageId !== 'markdown') return;
+  function tryAutoOpen() {
     if (!shouldAutoOpen()) return;
 
-    // Auto-open preview to the side
-    previewManager.showPreview(vscode.ViewColumn.Beside);
+    // Check active editor first
+    const active = vscode.window.activeTextEditor;
+    if (active?.document.languageId === 'markdown') {
+      previewManager.showPreview(vscode.ViewColumn.Beside);
+      return;
+    }
+
+    // Check all visible editors — VS Code may not have set activeTextEditor yet
+    for (const editor of vscode.window.visibleTextEditors) {
+      if (editor.document.languageId === 'markdown') {
+        previewManager.showPreview(vscode.ViewColumn.Beside);
+        previewManager.updateImmediate(editor.document);
+        return;
+      }
+    }
   }
 
-  // Auto-open for the currently active editor on activation
-  autoOpenIfMarkdown(vscode.window.activeTextEditor);
+  // Auto-open on activation — try immediately and retry after VS Code settles
+  tryAutoOpen();
+  setTimeout(tryAutoOpen, 500);
+  setTimeout(tryAutoOpen, 1500);
 
   // Auto-open when switching to a markdown file
   context.subscriptions.push(
     vscode.window.onDidChangeActiveTextEditor((editor) => {
       if (editor?.document.languageId === 'markdown') {
-        autoOpenIfMarkdown(editor);
+        if (!previewManager.isOpen && shouldAutoOpen()) {
+          previewManager.showPreview(vscode.ViewColumn.Beside);
+        }
         previewManager.updateImmediate(editor.document);
       }
     })
@@ -132,13 +147,13 @@ export function activate(context: vscode.ExtensionContext) {
       if (document.languageId !== 'markdown') return;
       if (!shouldAutoOpen()) return;
 
-      // Small delay to let the editor tab settle before opening preview
+      // Delay to let the editor tab become active
       setTimeout(() => {
         const active = vscode.window.activeTextEditor;
         if (active?.document === document) {
           previewManager.showPreview(vscode.ViewColumn.Beside);
         }
-      }, 100);
+      }, 200);
     })
   );
 
