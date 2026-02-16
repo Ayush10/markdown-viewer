@@ -39,7 +39,7 @@ export default function MarkdownRenderer({ content, theme }: MarkdownRendererPro
     () => ({
       pre({ children, ...props }) {
         const child = children as any;
-        if (child?.type === 'code') {
+        if (child?.props) {
           const className = child.props?.className ?? '';
 
           if (/language-mermaid/.test(className)) {

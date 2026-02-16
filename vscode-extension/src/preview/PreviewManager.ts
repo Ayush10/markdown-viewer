@@ -11,14 +11,19 @@ export class PreviewManager {
     this.extensionUri = context.extensionUri;
   }
 
+  get isOpen(): boolean {
+    return this.panel !== undefined;
+  }
+
   showPreview(column: vscode.ViewColumn) {
     if (this.panel) {
-      this.panel.reveal(column);
+      // Don't steal focus — just reveal preserving current focus
+      this.panel.reveal(column, true);
     } else {
       this.panel = vscode.window.createWebviewPanel(
         'markdownViewerPreview',
         'Markdown Preview',
-        column,
+        { viewColumn: column, preserveFocus: true },
         {
           enableScripts: true,
           retainContextWhenHidden: true,

@@ -88,17 +88,57 @@ export function activate(context: vscode.ExtensionContext) {
   // ─── Editor Enhancements ───
   registerEditorCommands(context);
 
-  // ─── Live Preview Updates ───
+  // ─── Auto-open & Live Preview ───
+  function shouldAutoOpen(): boolean {
+    return vscode.workspace
+      .getConfiguration('markdownViewer.preview')
+      .get<boolean>('autoOpen', true);
+  }
+
+  function autoOpenIfMarkdown(editor: vscode.TextEditor | undefined) {
+    if (!editor) return;
+    if (editor.document.languageId !== 'markdown') return;
+    if (!shouldAutoOpen()) return;
+
+    // Auto-open preview to the side
+    previewManager.showPreview(vscode.ViewColumn.Beside);
+  }
+
+  // Auto-open for the currently active editor on activation
+  autoOpenIfMarkdown(vscode.window.activeTextEditor);
+
+  // Auto-open when switching to a markdown file
+  context.subscriptions.push(
+    vscode.window.onDidChangeActiveTextEditor((editor) => {
+      if (editor?.document.languageId === 'markdown') {
+        autoOpenIfMarkdown(editor);
+        previewManager.updateImmediate(editor.document);
+      }
+    })
+  );
+
+  // Live preview on text changes
   context.subscriptions.push(
     vscode.workspace.onDidChangeTextDocument((e) => {
       if (e.document.languageId === 'markdown') {
         previewManager.update(e.document);
       }
-    }),
-    vscode.window.onDidChangeActiveTextEditor((editor) => {
-      if (editor?.document.languageId === 'markdown') {
-        previewManager.updateImmediate(editor.document);
-      }
+    })
+  );
+
+  // Auto-open when a new markdown file is opened
+  context.subscriptions.push(
+    vscode.workspace.onDidOpenTextDocument((document) => {
+      if (document.languageId !== 'markdown') return;
+      if (!shouldAutoOpen()) return;
+
+      // Small delay to let the editor tab settle before opening preview
+      setTimeout(() => {
+        const active = vscode.window.activeTextEditor;
+        if (active?.document === document) {
+          previewManager.showPreview(vscode.ViewColumn.Beside);
+        }
+      }, 100);
     })
   );
 
