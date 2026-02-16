@@ -7,7 +7,7 @@
     "name": "Ayush Ojha",
     "email": "contact@ayushojha.com"
   },
-  "homepage": "https://ayushojha.com/tools/markdowneditor",
+  "homepage": "https://markdown-viewer.ayushojha.com",
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {

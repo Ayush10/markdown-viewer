@@ -1,4 +1,5 @@
 import { FileUp, ClipboardPaste, Code2, BarChart3, Sigma, Table2, ListChecks, BookOpen, PenLine } from 'lucide-react';
+import DownloadSection from './DownloadSection';
 
 interface WelcomeScreenProps {
   onOpenFile: () => void;
@@ -58,6 +59,8 @@ export default function WelcomeScreen({ onOpenFile, onPasteMarkdown, onLoadSampl
           ))}
         </div>
       </div>
+
+      <DownloadSection />
     </div>
   );
 }

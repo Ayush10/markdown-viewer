@@ -750,6 +750,167 @@ body {
   line-height: 1.4;
 }
 
+/* ─── Download Section ─── */
+.download-section {
+  text-align: center;
+  max-width: 480px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.download-section h2 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+.download-version {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+.download-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  padding: 12px;
+}
+
+.download-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  color: inherit;
+}
+
+.download-btn--recommended {
+  background: var(--accent);
+  color: white;
+  margin-bottom: 8px;
+}
+
+.download-btn--recommended:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: white;
+}
+
+.download-btn--secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.download-btn--secondary:hover {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  color: var(--text-primary);
+}
+
+.download-btn-text {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.download-btn-label {
+  font-weight: 500;
+  flex: 1;
+  text-align: left;
+}
+
+.download-btn-meta {
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+.download-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  margin-top: 4px;
+}
+
+.download-toggle:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.download-all {
+  margin-top: 12px;
+  text-align: left;
+}
+
+.download-platform {
+  margin-bottom: 12px;
+}
+
+.download-platform-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  padding-left: 4px;
+}
+
+.download-release-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-link);
+  text-decoration: none;
+  padding: 8px 4px;
+  transition: color var(--transition);
+}
+
+.download-release-link:hover {
+  color: var(--text-link-hover);
+}
+
 /* ═══════════════════════════════════════════
    Markdown Body Styles
    ═══════════════════════════════════════════ */
