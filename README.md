@@ -1,6 +1,32 @@
 # Markdown Viewer
 
-A feature-rich markdown viewer and editor available as a web app and native desktop application for **macOS**, **Windows**, and **Linux**. Supports GFM, math equations, Mermaid diagrams, syntax highlighting, frontmatter, and more.
+A feature-rich markdown viewer and editor available as a **VS Code extension**, **web app**, and **native desktop application** for macOS, Windows, and Linux. Supports GFM, math equations, Mermaid diagrams, syntax highlighting, frontmatter, LLM-powered rewriting, and more.
+
+## VS Code Extension
+
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/ayushojha.markdown-viewer-enhanced?label=VS%20Code%20Marketplace&color=blue)](https://marketplace.visualstudio.com/items?itemName=ayushojha.markdown-viewer-enhanced)
+
+Install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ayushojha.markdown-viewer-enhanced) or search **"Markdown Viewer Enhanced"** in the Extensions panel.
+
+```bash
+# Or install via CLI
+code --install-extension ayushojha.markdown-viewer-enhanced
+```
+
+**Extension features:**
+- Full markdown preview with GFM, LaTeX math, Mermaid diagrams, and syntax highlighting
+- Auto-opens preview when a markdown file is detected
+- **AI-powered rewriting** — select text, right-click, and choose from Rewrite, Simplify, Expand, Fix Grammar, Make Professional, or Custom Prompt
+- LLM support via VS Code Language Model API (Copilot), Anthropic, or OpenAI
+- Editor shortcuts for bold, italic, code, links, images, tables, and code blocks
+- Works across **VS Code, Cursor, Antigravity, VSCodium, Windsurf**, and other VS Code-compatible editors
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl+Shift+M` | Open preview to side |
+| `Cmd/Ctrl+B` | Toggle bold |
+| `Cmd/Ctrl+I` | Toggle italic |
+| `` Cmd/Ctrl+` `` | Toggle inline code |
 
 ## Features
 
@@ -15,6 +41,7 @@ A feature-rich markdown viewer and editor available as a web app and native desk
 - **GitHub Alerts** — `[!NOTE]`, `[!TIP]`, `[!WARNING]` styled blockquotes
 - **Emoji Support** — `:emoji:` shortcode rendering
 - **File Management** — Drag-and-drop, paste, open from disk, multi-file tabs
+- **VS Code Extension** — [Available on Marketplace](https://marketplace.visualstudio.com/items?itemName=ayushojha.markdown-viewer-enhanced) with AI rewriting
 - **Cross-Platform** — Native desktop app for macOS, Windows, and Linux with file associations
 - **Adjustable Font Size** — Zoom in/out controls
 - **Raw HTML** — Inline HTML rendering within markdown
@@ -146,6 +173,7 @@ The app runs in **dual mode**: when `window.electronAPI` is available it uses na
 | Editor | CodeMirror 6 (@uiw/react-codemirror) |
 | Frontmatter | gray-matter |
 | Icons | Lucide React |
+| VS Code Extension | esbuild, VS Code Webview API, vscode.lm API |
 
 ## Project Structure
 
@@ -176,6 +204,16 @@ electron/
 ├── main.cjs                       # Main process (window, menus, IPC, cross-platform)
 ├── preload.cjs                    # Secure IPC bridge
 └── afterPack.cjs                  # macOS xattr cleanup post-build
+
+vscode-extension/
+├── package.json                   # Extension manifest
+├── esbuild.mjs                    # Dual-target build (extension + webview)
+└── src/
+    ├── extension.ts               # Entry point: commands, listeners, activation
+    ├── preview/                    # Webview panel lifecycle
+    ├── llm/                       # Tiered LLM (vscode.lm → Anthropic/OpenAI)
+    ├── editor/                    # Formatting commands
+    └── webview/                   # React app reusing rendering pipeline
 ```
 
 ## License
